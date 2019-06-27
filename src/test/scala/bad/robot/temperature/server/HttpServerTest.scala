@@ -74,7 +74,7 @@ class HttpServerTest extends Specification with AfterAll {
   }
 
   "get the local machine's log over http" >> {
-    maybeCreateFile("temperature-machine.log")
+    maybeCreateFile("/temperature-machine.log")
     assertOk(Request(GET, path("/log")))
   }
 
