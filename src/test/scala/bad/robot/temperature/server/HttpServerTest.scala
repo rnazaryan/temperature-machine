@@ -29,7 +29,7 @@ class HttpServerTest extends Specification with AfterAll {
   // todo wait for server to startup, not sure how.
 
   "index.html can be loaded" >> {
-    assertOk(Request(GET, path("")))
+    assertOk(Request(GET, path("/index.html")))
   }
 
   "temperature.json can be loaded" >> {
@@ -43,17 +43,17 @@ class HttpServerTest extends Specification with AfterAll {
   }
 
   "RRD chart / image can be loaded" >> {
-    maybeCreateFile("temperature-1-days.png")
+    maybeCreateFile("/temperature-1-days.png")
     assertOk(Request(GET, path("/temperature-1-days.png")))
   }
 
   "Some java script can be loaded (note this changes with every UI deployment)" >> {
-    val file = findFileIn("src/main/resources/static/js", startingWith("main", ".js"))
+    val file = findFileIn("/src/main/resources/static/js", startingWith("main", ".js"))
     assertOk(Request(GET, path("/static/js/" + file.head)))
   }
 
   "Some css can be loaded (note this changes with every UI deployment)" >> {
-    val file = findFileIn("src/main/resources/static/css", startingWith("main", ".css"))
+    val file = findFileIn("/src/main/resources/static/css", startingWith("main", ".css"))
     assertOk(Request(GET, path("/static/css/" + file.head)))
   }
 
@@ -74,7 +74,7 @@ class HttpServerTest extends Specification with AfterAll {
   }
 
   "get the local machine's log over http" >> {
-    maybeCreateFile("temperature-machine.log")
+    maybeCreateFile("/temperature-machine.log")
     assertOk(Request(GET, path("/log")))
   }
 
